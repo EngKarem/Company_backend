@@ -32,7 +32,7 @@ class ServiceController extends Controller
     public function getCompanyServices($id): JsonResponse
     {
         // Retrieve the user data from the database based on the ID
-        $services = Service::where('Company_id', $id)->get();
+        $services = Service::where('user_id', $id)->get();
 
         // Check if the user exists
         if (!$services) {
@@ -52,7 +52,7 @@ class ServiceController extends Controller
             return response()->json(['message' => 'Service not found'], 404);
         }
 
-        $company_id = $service->pluck('Company_id');
+        $company_id = $service->pluck('user_id');
 
         $Company = User::whereIn('id', $company_id)->get();
         if ($Company -> isEmpty()) {
